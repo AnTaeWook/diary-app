@@ -1,11 +1,13 @@
 <script>
-	import { diaries } from '$lib/store.js';
 	import addIcon from '$lib/assets/icon_add.svg';
-	import Icon from '@iconify/svelte';
+	import Btns from "$lib/components/Btns.svelte";
+	import {formatDate} from "$lib/utils/formatDate.js";
+
+	export let data;
 </script>
 
 <main class="container">
-	{#each $diaries as diary}
+	{#each data.diaries as diary}
 		<div class="diary">
 			<a href={`/read/` + diary.id}>
 				<p class="content">{
@@ -15,15 +17,8 @@
 				}</p>
 			</a>
 			<div class="bottom-info">
-				<span class="date">{diary.date}</span>
-				<div class="btns">
-					<button class="btn">
-						<Icon icon="la:pen" width="24" height="24" style="color: #444"/>
-					</button>
-					<button class="btn">
-						<Icon icon="iconamoon:trash-light" width="24" height="24" style="color: #f80"/>
-					</button>
-				</div>
+				<span class="date">{formatDate(diary.created_at)}</span>
+				<Btns diary={diary} />
 			</div>
 		</div>
 	{/each}

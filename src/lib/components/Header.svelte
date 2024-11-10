@@ -1,13 +1,13 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { addDiary } from '$lib/store.js';
+	import { addDiary, editDiary, editId } from '$lib/store.js';
 
-	function clickHandler() {
-		if ($page.url.pathname === '/write') {
-			addDiary();
-		} else if ($page.url.pathname === '/edit') {
-			console.log('edit');
+	async function clickHandler() {
+		if ($page.url.pathname.startsWith('/write')) {
+			await addDiary();
+		} else if ($page.url.pathname.startsWith('/edit')) {
+			await editDiary($editId);
 		}
 		goto('/');
 	}

@@ -1,27 +1,29 @@
 <script>
-	import TextArea from '$lib/components/TextArea.svelte';
 	import { writing } from '$lib/store.js';
-	import formatDate from '$lib/utils/formatDate.js';
+	import {currentDate} from '$lib/utils/formatDate.js';
+	import autosize from 'svelte-autosize';
 
 	let val = ""
 	$: {
 		$writing = val;
-		console.log($writing);
 	}
 </script>
 
 <main>
 	<div class="diary">
-		<TextArea
-			bind:value={val}
-			minRows={4}
-			maxRows={40}
-		/>
+		<textarea
+				use:autosize
+				bind:value={val}
+				placeholder="글쓰기를 시작하세요..."
+		></textarea>
 		<div class="bottom-info">
-			<span class="date">{formatDate()}</span>
+			<span class="date">{currentDate()}</span>
 		</div>
 	</div>
 </main>
 
 <style lang='scss'>
+	main {
+		padding: 35px 20px;
+	}
 </style>
